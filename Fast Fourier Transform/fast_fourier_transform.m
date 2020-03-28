@@ -1,9 +1,12 @@
 %% Clear Workspace
 clear all; close all; clc;
+
 %% Load the ultrasound data
 load Testdata
+
 %% Setup global variable
 AnalysisPlotting = true;
+
 %% Averaging the data in frequency domain to find center frequency.
 L=15;
 n=64;                                 % fourier modes
@@ -28,6 +31,7 @@ Uave=fftshift(Uave)/20;               % shifted average spectrum
 [M,I]=max(Uave(:));
 [j,i,k]=ind2sub(size(Uave), I);
 kc=[ks(i), ks(j), ks(k)];             % center frequencies
+
 %% 3D Gaussian Filter to filter the data around center frequency.
 % filt(:,1)=exp(-(ks-kc(1)).^2);
 % filt(:,2)=exp(-(ks-kc(2)).^2);
@@ -49,6 +53,7 @@ for t=1:20
     location=[x(i), y(j), z(k)];
     path=[path; location];
 end
+
 %% Plot the path of the marble
 figure(1)
 plot3(path(:,1), path(:,2), path(:,3), '-o', 'Linewidth', [3])
